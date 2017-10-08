@@ -3,10 +3,9 @@
 import csv, random
 
 
-players_list = []
-
 #convert csv to list of dictionaries
 def csv_converter():
+    players_list = []
     with open("soccer_players.csv") as csvfile:
         soccer_reader = csv.reader(csvfile, delimiter = ",")
         first_line = False
@@ -67,10 +66,13 @@ def build_list():
 
     write_team_list(Raptors, Sharks, Dragons)
 
+    write_welcome_letters(Raptors, Sharks, Dragons)
+
+
 #write teams to team list
 def write_team_list(Raptors, Sharks, Dragons):
     with open("teams.txt", "w") as team_list:
-        team_list.write("This is the list for this year's teams. \n ")
+        team_list.write("This is the list for this year's teams. \n")
 
     with open("teams.txt", "a") as team_list:
         team_list.write("Raptors \n")
@@ -89,6 +91,28 @@ def write_team_list(Raptors, Sharks, Dragons):
         team_list.write("\n")
 
 #create welcome list for parents
+def write_welcome_letters(Raptors, Sharks, Dragons):
+    for player in Raptors:
+        with open(str(player["name"].replace(" ","_")) + ".txt", "w") as letter:
+            letter.write("Dear {guardian},\nYour child, {name}, will be playing on the Raptors this year. \n"
+                         "You will meet the team's coach and the other kids on the team at the team's \n"
+                         "first practice on October 15th, 4:00 PM at the Beach Chalet Fields in Golden Gate Park. \n"
+                         "Practice will last one hour.".format(**player))
+
+    for player in Sharks:
+        with open(str(player["name"].replace(" ", "_")) + ".txt", "w") as letter:
+            letter.write("Dear {guardian},\nYour child, {name}, will be playing on the Sharks this year. \n"
+                         "You will meet the team's coach and the other kids on the team at the team's \n"
+                         "first practice on October 15th, 5:00 PM at the Beach Chalet Fields in Golden Gate Park. \n"
+                         "Practice will last one hour.".format(**player))
+
+    for player in Dragons:
+        with open(str(player["name"].replace(" ", "_")) + ".txt", "w") as letter:
+            letter.write("Dear {guardian},\nYour child, {name}, will be playing on the Dragons this year. \n"
+                         "You will meet the team's coach and the other kids on the team at the team's \n"
+                         "first practice on October 15th, 6:00 PM at the Beach Chalet Fields in Golden Gate Park. \n"
+                         "Practice will last one hour.".format(**player))
+
 
 
 
