@@ -28,6 +28,7 @@ def experience(players_list):
     experienced = []
     inexperienced = []
 
+    #make separate lists for kids with experience and kids w/o experience
     for kid in players_list:
         if kid["experience"] == "YES":
             experienced.append(kid)
@@ -48,9 +49,9 @@ def build_list():
 
     #randomly assign experienced kids to teams
     while experienced:
-        if len(Raptors) < 2:
+        if len(Raptors) < 3:
             Raptors.append(experienced.pop(random.randint(0,len(experienced)-1)))
-        elif len(Raptors) == 2 and len(Sharks) < 2:
+        elif len(Raptors) == 3 and len(Sharks) < 3:
             Sharks.append(experienced.pop(random.randint(0,len(experienced)-1)))
         else:
             Dragons.append(experienced.pop(random.randint(0,len(experienced)-1)))
@@ -64,6 +65,35 @@ def build_list():
         else:
             Dragons.append(inexperienced.pop(random.randint(0,len(inexperienced)-1)))
 
+    write_team_list(Raptors, Sharks, Dragons)
+
+#write teams to team list
+def write_team_list(Raptors, Sharks, Dragons):
+    with open("teams.txt", "w") as team_list:
+        team_list.write("This is the list for this year's teams. \n ")
+
+    with open("teams.txt", "a") as team_list:
+        team_list.write("Raptors \n")
+        for player in Raptors:
+            team_list.write(player["name"]+", " + player["experience"] + ", " + player["guardian"] + "\n")
+        team_list.write("\n")
+
+        team_list.write("Sharks \n")
+        for player in Sharks:
+            team_list.write(player["name"]+", " + player["experience"] + ", " + player["guardian"] + "\n")
+        team_list.write("\n")
+
+        team_list.write("Dragons \n")
+        for player in Dragons:
+            team_list.write(player["name"]+", " + player["experience"] + ", " + player["guardian"] + "\n")
+        team_list.write("\n")
+
+#create welcome list for parents
+
+
+
+if __name__ == "__main__":
+    build_list()
 
 
 
